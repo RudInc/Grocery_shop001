@@ -16,4 +16,25 @@ public class GroceryServices{
                 FROM Transaction__c 
                 WHERE Status__c LIKE 'Active' OR Status__c LIKE'Closed'];
     }
+    /*
+    Create method calculateTotalAmount in GroceryServices class which returns total amount for all specified Line Items
+    Input parameter: (List<Line_Item__c> lineItems)
+    Result: Integer amount - total amount for all specified Line Items
+     */
+    public static Integer calculateTotalAmount()
+    {	
+        Line_Item__c[] items = [SELECT Amount__c FROM Line_Item__c];
+        Decimal  res = 0;
+        for(Line_Item__c i : items){
+        res += i.Amount__c;
+        }
+        return (Integer)res;
+    }
+    public static Integer calculateTotalAmount(List<Line_Item__c> items){
+        Decimal  res = 0;
+        for(Line_Item__c i : items){
+        res += i.Amount__c;
+        }
+        return (Integer)res;
+    }
 }
