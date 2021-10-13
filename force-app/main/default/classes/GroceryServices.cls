@@ -5,7 +5,11 @@ public class GroceryServices{
     Result: (List<Transaction__c> transactions) - transactions with Active and Closed Status
      */
     public static List<Transaction__c> filterValidTransactions(List<Transaction__c> transactions) {
-        List<Transaction__c> validTrs;
+        if(transactions.isEmpty())
+        {
+            return new List<Transaction__c>();
+        } 
+        List<Transaction__c> validTrs = new List<Transaction__c>();
         for(Transaction__c trs : transactions){
             if(trs.Status__c == 'Active' || trs.Status__c == 'Closed') validTrs.add(trs);
         }
