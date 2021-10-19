@@ -1,4 +1,5 @@
 public class GroceryServices{
+    
     /*
     Method filterValidTransactions returns Active and Closed transactions from a list of Transaction__c
     Input parameter: (List<Transaction__c> transactions)
@@ -40,5 +41,52 @@ public class GroceryServices{
         res += i.Amount__c;
         }
         return (Integer)res;
+    }
+    /*     
+    createTransaction	Database.SaveResult	String paymentType	create transaction record
+    */
+    public static Database.SaveResult createTransaction(String paymentType){
+        return Database.insert(new Transaction(Payment_Type__c = paymentType),false);
+    }
+     /*
+    createTransaction	Database.SaveResult	String paymentType, List<LineItemDTO>	
+    create transaction and line items with single call. As input parameter helper class is used. 
+    */
+    public static Database.SaveResult[] createTransaction(String paymentType, List<LineItemDTO> items){
+        
+        List<sObject> trnsAndItems; 
+        trnsAndItems.add(new Transaction__c(Payment_Type__c = paymentType));
+        for(LineItemDTO lineItems:items){
+            trnsAndItems.add(new Line_item__c(Quantity__c = lineItems.quantity, Transaction__c = trnsAndItems[0].ID, Product__c = lineItems.productId));
+        }
+        return Database.insert(trnsAndItems,false);
+    }
+
+    /* 
+     createLineItem	Database.SaveResult	Id transactionId, Id productId, Integer amount.	create line item record
+    */
+    public static Database.SaveResult createLineItem(Id transactionId, Id productId, Integer quantity) {
+        return Database.insert(new Line_item__c(Quantity__c = quantity,Transaction__c = transactionId,Product__c = productId),false);
+    }
+
+    /*
+    cancelTransaction	void	Id transactionId	Set Status__c to Cancelled
+    */
+    public static void cancelTransaction(ID transactionId){
+        Transaction__c trs = [SELECT Status__c FROM Transaction__c WHERE ID = :transactionId];
+        trs.Status__c = 'Closed';
+        update trs;
+        return;
+    }
+    /*
+    deleteLineItem	void Id lineItemId	delete line item by ID
+    */
+    public static void deleteLineItem(ID lineItemId){
+        try{
+        	delete [SELECT ID FROM Line_Item__c WHERE ID = :lineItemId];
+        } catch (DmlException e){
+            System.debug('The following exception has occurred: ' + e.getMessage());
+        }
+        return;
     }
 }
