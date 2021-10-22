@@ -3,19 +3,20 @@ public class GroceryDAO{
     //return map, where key = product id, value = number of sold items in period between start/end dates. Date value is Transaction's CreatedDate
     public static Map<ID,Integer>getNumberOfSoldProducts(DateTime startDate, DateTime endDate){
         
-        List<AggregateResult> items = [SELECT Product__r.ID, COUNT(id)
+        List<AggregateResult> items = [SELECT Product__c, COUNT(id)
                                     FROM Line_Item__c
                                     WHERE Transaction__r.CreatedDate > :startDate AND Transaction__r.CreatedDate <:endDate
-                                    GROUP BY Product__r.ID]; 
+                                    GROUP BY Product__c]; 
         Map<ID, Integer>res = new Map<ID, Integer>();
         for(AggregateResult i :items){
-            res.put(i.get('Product__r.ID'),i.get('expr0'));
+            res.put(i.get('Product__c'),i.get('expr0'));
         }
         return res;
 
     }
     //return map, where key = transaction id, value = amount of money of all line items related to this trasaction.
     public static Map<ID,Decimal> getTotalAmountOfTransactions(Set<Id> trsIds){
+        if(trsIds.isEmpty()){return new Map<ID,Decimal>();}
         List<Transaction__c> trs = [SELECT ID, Total_Amount__c FROM Transaction__c WHERE ID IN: trsIds];
         Map<ID,Decimal> res = new Map<ID,Decimal>();
         for(Transaction__c i: trs){
@@ -41,6 +42,7 @@ public class GroceryDAO{
     }
     //get all products
     public static List<Product__c> getProducts(Integer limitNumber, Integer offsetNumber){
+        if(limitNumber<1||offsetNumber<1){return new List<Product__c>();}
         return [SELECT Name, Code__c, Price__c, Available_Amount__c 
                 FROM Product__c 
                 LIMIT :limitNumber OFFSET :offsetNumber];
