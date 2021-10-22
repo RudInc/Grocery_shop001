@@ -5,42 +5,42 @@ public with sharing class LineItemTriggerHandler {
         for(Line_Item__c i : newItems){
             prodsId.add(i.Product__c);
         }
-        List<Product__c> prods = [SELECT ID, Available_Amount__c FROM Product__c WHERE ID IN: prodsId];
-        List<Product__c> newProds = new List<Product__c>();
-        for(Product__c i : prods){
-            for(Line_Item__c j : newItems){
-                if(j.Product__c == i.ID){
-                    if(i.Available_Amount__c-j.Quantity__c>=0){
-                    	newProds.add(new Product__c(ID = i.ID, Available_Amount__c = i.Available_Amount__c-j.Quantity__c));
+        List<Product__c> products = [SELECT ID, Available_Amount__c FROM Product__c WHERE ID IN: prodsId];
+        
+        for(Product__c prods : products){
+            for(Line_Item__c items : newItems){
+                if(items.Product__c == prods.ID){
+                    if(prods.Available_Amount__c-items.Quantity__c>=0){
+                    	prods.Available_Amount__c =prods.Available_Amount__c-items.Quantity__c;
                     } else{
-                        j.Quantity__c.addError('Quantity of line item cannot be greater than product amount');
+                        items.Quantity__c.addError('Quantity of line item cannot be greater than product amount');
                     }
                 }
           
             }
         }
-        update newProds;
+        update products;
     }
     public void onUpdate(List<Line_Item__c> newItems,Map<ID, Line_Item__c> oldItemsMap) {
         Set<ID> prodsId= new Set<ID>();
-        for(Line_Item__c i : newItems){
-            prodsId.add(i.Product__c);
+        for(Line_Item__c items : newItems){
+            prodsId.add(items.Product__c);
         }
-        List<Product__c> prods = [SELECT ID, Available_Amount__c FROM Product__c WHERE ID IN: prodsId];
-		List<Product__c> newProds = new List<Product__c>();
-        for(Product__c i : prods){
-            for(Line_Item__c j : newItems){
-                if(j.Product__c == i.ID){
-                    if(i.Available_Amount__c-j.Quantity__c+oldItemsMap.get(j.ID).Quantity__c >= 0){
-                        newProds.add(new Product__c(ID = i.ID, Available_Amount__c= i.Available_Amount__c-j.Quantity__c+oldItemsMap.get(j.ID).Quantity__c));
+        List<Product__c> products = [SELECT ID, Available_Amount__c FROM Product__c WHERE ID IN: prodsId];
+		
+        for(Product__c prods : products){
+            for(Line_Item__c items : newItems){
+                if(items.Product__c == prods.ID){
+                    if(prods.Available_Amount__c-items.Quantity__c-oldItemsMap.get(items.ID).Quantity__c >= 0){
+                        prods.Available_Amount__c = prods.Available_Amount__c-items.Quantity__c+oldItemsMap.get(items.ID).Quantity__c ;
     
                     } else{
-                        j.Quantity__c.addError('Quantity of line item cannot be greater than product amount');
+                        items.Quantity__c.addError('Quantity of line item cannot be greater than product amount');
                     }
                 }
           
             }
         }
-        update newProds;
+        update products;
     }
 }
