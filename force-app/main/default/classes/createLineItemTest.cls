@@ -1,5 +1,5 @@
 @isTest
-public class createLineItemTest {
+public class CreateLineItemTest {
     
     @TestSetup static void testSetup(){
         insert TestDataFactory.generateTransactions(3,'Active');

@@ -68,7 +68,7 @@ public class GroceryServices{
         insert(transToAdd);
         List<Line_item__c> lineItemToAdd = new List<Line_item__c>(); 
         for(LineItemDTO lineItems : items){
-            lineItemToAdd.add(new Line_item__c(Amount__c = 0,Quantity__c = lineItems.quantity, Transaction__c = [SELECT ID FROM Transaction__c WHERE ID =:transToAdd.id].id, Product__c = lineItems.productId));
+            lineItemToAdd.add(new Line_item__c(Amount__c = 0,Quantity__c = lineItems.quantity, Transaction__c = transToAdd.id, Product__c = lineItems.productId));
         }
        // insert(transToAdd);
         return Database.insert(lineItemToAdd,false);

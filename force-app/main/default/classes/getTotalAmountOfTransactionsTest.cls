@@ -1,5 +1,5 @@
 @isTest
-public class getTotalAmountOfTransactionsTest {
+public class GetTotalAmountOfTransactionsTest {
     @testSetup static void testSetup(){
         List<Transaction__c> setupTransactions = TestDataFactory.generateTransactions(15,'Active');
         List<Product__c> setupProduct = TestDataFactory.generateProducts(3,10,1000);

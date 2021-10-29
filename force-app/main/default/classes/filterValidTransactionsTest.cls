@@ -1,5 +1,5 @@
-@isTest@isTest
-public class filterValidTransactionsTest{
+@isTest
+public class FilterValidTransactionsTest{
     @testSetup static void testSetup() {
         Integer transactinsNum = 20;
         insert TestDataFactory.generateTransactions(transactinsNum,'Active');

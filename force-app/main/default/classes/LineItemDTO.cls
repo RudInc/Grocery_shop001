@@ -1,9 +1,9 @@
 public class LineItemDTO{
-    public Integer quontity;
+    public Integer quantity;
     public ID productID;
 	
     public LineItemDTO(Integer q, ID prodId){
-        quontity = q;
+        quantity = q;
         productID = prodId;
     }
     public static List<LineItemDTO> generateLineItemDTO(Integer num,Integer quantity, ID productID){

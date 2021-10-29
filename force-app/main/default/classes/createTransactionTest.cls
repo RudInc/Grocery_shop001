@@ -1,5 +1,5 @@
 @isTest
-public class createTransactionTest {
+public class CreateTransactionTest {
  
     @isTest static void createTransactionTest(){
         List<LineItemDTO> itemsDTO = LineItemDTO.generateLineItemDTO(10,10, (id)'a040900000LcqwfAAB');

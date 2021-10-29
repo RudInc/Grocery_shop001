@@ -1,5 +1,5 @@
 @isTest
-public class cancelTransactionTest {
+public class CancelTransactionTest {
     @testSetup static void setupTest(){
         Transaction__c testTransaction = new Transaction__c(Status__c = 'Active');
         insert testTransaction;

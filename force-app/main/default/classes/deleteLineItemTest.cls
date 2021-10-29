@@ -1,5 +1,5 @@
 @isTest
-public class deleteLineItemTest {
+public class DeleteLineItemTest {
     @testSetup static void testSetup(){
         insert new Transaction__c();
         insert new Product__c(Available_Amount__c = 10000);
