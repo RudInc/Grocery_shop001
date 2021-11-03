@@ -73,11 +73,15 @@ public class GroceryDAO {
                 LIMIT :limitNumber OFFSET :offsetNumber];
     }
     //get all line items related to inputed transaction
-    @AuraEnabled
     public static List<Line_Item__c> getLineItemsByTransaction(ID transactionId){
        return [SELECT ID, Name, Product_Name_With_Code__c, Quantity__c, Amount__c 
                FROM Line_Item__c 
                WHERE Transaction__c =:transactionId];
+    } 
+    //get all transaction related to inputed customer
+    public static List<Transaction__c> getTransactionByCustomer(ID customerID){
+        [SELECT ID, Name, Total_Amount__c
+        FROM Transaction__c 
+        WHERE Grocery_Customer__c =:tracustomerIDnsactionId];
     }
- 
 }

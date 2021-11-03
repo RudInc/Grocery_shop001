@@ -43,4 +43,7 @@ public with sharing class LineItemTriggerHandler {
         }
         update products;
     }
+    public void onDelete(){
+        
+    }
 }

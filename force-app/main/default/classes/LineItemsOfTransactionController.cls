@@ -1,5 +1,6 @@
 public with sharing class LineItemsOfTransactionController {
-    public List<Line_Item__c> LineItemsOfTransaction(Id transactionId) {
+    @AuraEnabled
+    public static List<Line_Item__c> getLineItemsByTransaction(Id transactionId) {
         return GroceryDAO.getLineItemsByTransaction(transactionId);
     }
 }

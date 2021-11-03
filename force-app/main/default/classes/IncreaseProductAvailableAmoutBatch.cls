@@ -2,7 +2,7 @@ public with sharing class IncreaseProductAvailableAmoutBatch implements Database
     
     public Database.QueryLocator start(Database.BatchableContext bc){
         
-        return Database.getQueryLocator('SELECT Id, Available_Amount__c FROM  Product__c');
+        return Database.getQueryLocator('SELECT Id, Available_Amount__c FROM Product__c');
     }
     
     public void execute(Database.BatchableContext bc, List<Product__c> scope){
@@ -24,7 +24,7 @@ public with sharing class IncreaseProductAvailableAmoutBatch implements Database
     
     public void finish(Database.BatchableContext bc){
          
-         AsyncApexJob job = [SELECT Id, Status, NumberOfErrors,
+        AsyncApexJob job = [SELECT Id, Status, NumberOfErrors,
                             JobItemsProcessed,
                             TotalJobItems, CreatedBy.Email
                             FROM AsyncApexJob
