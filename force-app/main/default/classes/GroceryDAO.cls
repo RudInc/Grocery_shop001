@@ -84,4 +84,24 @@ public class GroceryDAO {
         FROM Transaction__c 
         WHERE Grocery_Customer__c =:tracustomerIDnsactionId];
     }
+    //get top products Of customer
+    public static List<AggregateResult> getTopProductsOfCustomer(id customerID){
+        List<AggregateResult> topProducts = [SELECT Product__r.NAME, SUM(Quantity__c) 
+                                             FROM Line_Item__c 
+                                             WHERE Transaction__c IN (SELECT ID FROM Transaction__c WHERE Grocery_customer__c = :customerID)
+                                             GROUP BY Product__r.NAME 
+                                             ORDER BY SUM(Quantity__c) DESC];
+        
+        return topProducts;
+    }
+    //get products by name
+    public static List<Product__c> getProductsByName(String productName){
+        
+        return [SELECT Id, Name, Price__c, Available_Amount__c FROM Product__c WHERE Name LIKE :productName];
+    }
+    //get customer by name
+    public static List<Grocery_Customer__c> getCustomerByName(String customerName){
+        return [SELECT ID, Name, Bonus__c FROM Grocery_Customer__c WHERE Name LIKE:customerName];
+    }
+
 }

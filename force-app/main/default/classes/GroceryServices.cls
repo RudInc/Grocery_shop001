@@ -70,7 +70,18 @@ public class GroceryServices{
         for(LineItemDTO lineItems : items){
             lineItemToAdd.add(new Line_item__c(Amount__c = 0,Quantity__c = lineItems.quantity, Transaction__c = transToAdd.id, Product__c = lineItems.productId));
         }
-       // insert(transToAdd);
+      
+        return Database.insert(lineItemToAdd,false);
+    }
+    public static Database.SaveResult[] createTransaction(String paymentType, List<LineItemDTO> items, ID customerID){
+        
+        Transaction__c transToAdd= new Transaction__c(Status__c = 'Active',Payment_Type__c = paymentType, Grocery_Customer__c = customerID);
+        insert(transToAdd);
+        List<Line_item__c> lineItemToAdd = new List<Line_item__c>(); 
+        for(LineItemDTO lineItems : items){
+            lineItemToAdd.add(new Line_item__c(Amount__c = 0,Quantity__c = lineItems.quantity, Transaction__c = transToAdd.id, Product__c = lineItems.productId));
+        }
+       
         return Database.insert(lineItemToAdd,false);
     }
      /*

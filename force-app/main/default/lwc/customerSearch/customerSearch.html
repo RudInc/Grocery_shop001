@@ -1,0 +1,9 @@
+<template>
+    <lightning-input type="text" label="Enter customer first name" onchange={handleInputChange}></lightning-input>
+    <lightning-datatable
+        key-field="id"
+        data={customers}
+        columns={columns}>
+    </lightning-datatable>
+
+</template>
