@@ -18,7 +18,7 @@ public class GroceryServices{
     public static List<Transaction__c> filterValidTransactions(){
         return [SELECT ID,Status__c 
                 FROM Transaction__c 
-                WHERE Status__c LIKE 'Active' OR Status__c LIKE'Closed'];
+                WHERE Status__c IN ('Active', 'Closed')];
     }
     /*
     Create method calculateTotalAmount in GroceryServices class which returns total amount for all specified Line Items

@@ -31,6 +31,4 @@ export default class CustomerOrder extends LightningElement {
     changeQuantity(event){
         this.quantity = event.detail.value;
     }
-    
-    
 }
