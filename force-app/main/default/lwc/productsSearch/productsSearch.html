@@ -1,0 +1,8 @@
+<template>
+    <lightning-input type="text" label="Enter product name" onchange={handleInputChange}></lightning-input>
+    <lightning-datatable
+        key-field="id"
+        data={products}
+        columns={columns}>
+    </lightning-datatable>
+</template>

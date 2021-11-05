@@ -1,0 +1,17 @@
+<template>
+    <p>Line items of Transaction</p>
+    <div >
+        <lightning-datatable
+            key-field="id"
+            data={lineItems}
+            columns={columns}>
+        </lightning-datatable>
+    </div>  
+    <div >
+        <lightning-datatable
+            key-field="id"
+            data={lineItemsFromExternal}
+            columns={columnsForExternal}>
+        </lightning-datatable>
+    </div>   
+</template>
