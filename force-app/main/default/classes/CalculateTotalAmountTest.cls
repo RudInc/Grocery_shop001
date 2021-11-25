@@ -8,7 +8,7 @@ public class CalculateTotalAmountTest {
         insert TestDataFactory.generateLineItems(20,20,setupTransaction.id,setupProduct.id);*/
     }
     @isTest static void calculateTotalAmountTest(){
-        Integer num = 20;
+        Integer num = 25;
         Transaction__c setupTransaction = new Transaction__c(Status__c ='Active',Payment_Type__c='Visa');
         Product__c setupProduct = new Product__c(Price__c =20);
         insert setupTransaction;
