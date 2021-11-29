@@ -82,7 +82,7 @@ public class GroceryDAO {
     public static List<Transaction__c> getTransactionByCustomer(ID customerID){
         [SELECT ID, Name, Total_Amount__c
         FROM Transaction__c 
-        WHERE Grocery_Customer__c =:tracustomerIDnsactionId];
+        WHERE Grocery_Customer__c =:customerID];
     }
     //get top products Of customer
     public static List<AggregateResult> getTopProductsOfCustomer(id customerID){

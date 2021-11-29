@@ -1,7 +1,7 @@
 export class lineItem {
-    constructor(itemsAmount, productID, quantity) {
-        this.index = itemsAmount;
-        this.productID = productID;
+    constructor(quantity,productID ) {
+        
         this.quantity = quantity;
+        this.productID = productID;
     }
 }

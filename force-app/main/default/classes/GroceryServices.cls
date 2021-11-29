@@ -73,7 +73,7 @@ public class GroceryServices{
       
         return Database.insert(lineItemToAdd,false);
     }
-    public static Database.SaveResult[] createTransaction(String paymentType, List<LineItemDTO> items, ID customerID){
+    public static Database.SaveResult[] createTransaction(String paymentType, List<LineItemDTO> items, Id customerID){
         
         Transaction__c transToAdd= new Transaction__c(Status__c = 'Active',Payment_Type__c = paymentType, Grocery_Customer__c = customerID);
         insert(transToAdd);

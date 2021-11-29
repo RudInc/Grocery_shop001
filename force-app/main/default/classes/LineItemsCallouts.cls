@@ -21,7 +21,7 @@ public class LineItemsCallouts {
     public class LineItemWrapper{
         @AuraEnabled public Integer quantity{get;set;}
         @AuraEnabled public Integer amount{get;set;}
-        @AuraEnabled public String productName{get;set;}
+        @AuraEnabled public String  productName{get;set;}
         @AuraEnabled public Integer transactionNumber{get;set;}
         @AuraEnabled public String productCode{get;set;}
         public LineItemWrapper(){
