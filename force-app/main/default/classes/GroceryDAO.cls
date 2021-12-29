@@ -101,7 +101,7 @@ public class GroceryDAO {
     }
     //get customer by name
     public static List<Grocery_Customer__c> getCustomerByName(String customerName){
-        return [SELECT ID, Name, Bonus__c FROM Grocery_Customer__c WHERE Name LIKE:customerName];
+        return [SELECT Id, Name, FirstName__c , Bonus__c FROM Grocery_Customer__c WHERE Name LIKE:customerName];
     }
 
 }

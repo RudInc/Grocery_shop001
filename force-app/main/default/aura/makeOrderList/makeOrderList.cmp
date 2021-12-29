@@ -1,0 +1,37 @@
+<aura:component controller="CustomerOrderController">
+    <aura:attribute name = "items" type="Object[]" />
+    <aura:attribute name = "customerId" type="String"/>
+    <aura:attribute name = "quantity" type="Decimal"/>
+    <aura:attribute name = "productId" type="String"/>
+    <aura:attribute name = "paymentType" type="String"/>
+    <form>
+        <lightning:input name="inputProductId" 
+                         label="Set product Id" 
+                         type="Text" 
+                         value="{!v.productId}"
+                         required="true" 
+                         />
+        <lightning:input name="inputQuantity" 
+                         label="Set quantity" 
+                         type ="Text" 
+                         required="true"  
+                         min="1" 
+                         step="1"
+                         value ="{!v.quantity}"/>
+        <lightning:button variant="brand"
+                          label="Add item"
+                          onclick="{!c.addItem}"/>
+    </form>
+    <lightning:card>
+        <aura:iteration items="{!v.items}" var = "item">
+            <c:makeOrderListItem productId="{!item.productId}" quantity="{!item.quantity}"/>
+        </aura:iteration>
+    </lightning:card>
+</aura:component>	
+
+
+<!--<lightning:select name="setPaymentType" label="Choose payment type" required="true" value="{!v.paymentType}">
+            <option value="Cash">Cash</option>
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">Mastercard</option>
+        </lightning:select>-->

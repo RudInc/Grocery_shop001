@@ -1,9 +1,19 @@
 <template>
-    <lightning-input type="text" label="Enter customer first name" onchange={handleInputChange}></lightning-input>
-    <lightning-datatable
-        key-field="id"
-        data={customers}
-        columns={columns}>
-    </lightning-datatable>
-
+    <div>
+        
+        <lightning-input disabled={choose} label="Enter customer last name" type="text"  onchange={handleInputChange}></lightning-input>
+        <template if:false={customers.isEmpty} >
+            <lightning-layout  multiple-rows=true>
+            <template for:each={customers} for:item="customer">
+                <lightning-layout-item key={customer.Id} >
+                    <c-customer choose={choose} 
+                                customer={customer} 
+                                onchoosecustomer={chooseCustomerHandler} 
+                                ondismisscustomer={dismissHandler}>
+                    </c-customer>
+                </lightning-layout-item>
+            </template>
+            </lightning-layout>
+        </template>
+    </div>
 </template>

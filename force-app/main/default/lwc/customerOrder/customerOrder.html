@@ -1,20 +1,17 @@
 <template>
-    <div>{result}</div>
-    <lightning-input type = 'id' label = 'Input product id' onchange={changeProductId}></lightning-input>
-    <lightning-input type = 'id' label = 'Input customer id' onchange={changeCustomerId}></lightning-input>
-    <lightning-input type = 'integer' label = 'Input quantity' onchange={changeQuantity}></lightning-input>
-    <lightning-combobox
-            name="paymentType"
-            label="Payment Type"
-            value={value}
-            placeholder="Select Progress"
-            options={options}
-            onchange={handleChangePaymentType} ></lightning-combobox>
-    <lightning-button variant="brand" label="Add" title="Add line Item" onclick={handleClickAdd} class="slds-m-left_x-small"></lightning-button>
-    <lightning-button variant="brand" label="Make order" title="Create transaction and line items in db" onclick={handleClickMake} class="slds-m-left_x-small"></lightning-button>
-    <lightning-datatable
-        key-field="productID"
-        data={items}
-        columns={columns}>
-    </lightning-datatable>
+    <div>
+        
+        <lightning-combobox
+                name="paymentType"
+                value={value}
+                placeholder="Select Progress"
+                options={options}
+                onchange={handleChangePaymentType} ></lightning-combobox>
+        <lightning-button variant="brand" label="Make order" title="Create transaction and line items in db" onclick={handleClickMake} class="slds-m-left_x-small"></lightning-button>
+        <lightning-datatable
+            key-field="productID"
+            data={items}
+            columns={columns}>
+        </lightning-datatable>
+    </div>
 </template>

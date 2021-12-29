@@ -1,0 +1,9 @@
+<aura:component>
+    <aura:attribute name="productId" type="String"/>
+    <aura:attribute name="quantity" type="Decimal"/>
+    
+    <article>
+        <p>ProductId : {!v.productId}</p>
+        <p>Quantity :{!v.quantity} </p>
+    </article>
+</aura:component>	

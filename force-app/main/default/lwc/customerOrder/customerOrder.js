@@ -1,21 +1,19 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import createTransaction from '@salesforce/apex/CustomerOrderController.createTransaction';
-import { lineItem } from './lineItem';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class CustomerOrder extends LightningElement {
-    customerId;
-    productId;
-    quantity;
+    @api customerid;
     paymentType;
-    itemsAmount = 0;
     items = [];
     value = 'Cash';
-    result;
     
 
     columns = [
-        { label:'Product ID', fieldName:'productID',type: 'text'},
-        { label:'Quantity', fieldName:'quantity',type: 'integer'},
+        { label:'Product ID', fieldName:'productId',type: 'text'},
+        { label:'Product Name',fieldName:'productName',type:'text'},
+        { label:'Quantity', fieldName:'productQuantity',type: 'integer'},
+        { label:'Total Price', fieldName:'productPrice',type: 'currency'}
     ];
     get options() {
         return [
@@ -26,34 +24,42 @@ export default class CustomerOrder extends LightningElement {
     }
 
     
-    handleClickAdd(){
-        
-        let item = [];
-        item.push(new lineItem(this.quantity, this.productId));
-        this.items = this.items.concat(item[0]);
-
-    }
     handleClickMake(){
+        
+        
         if(this.items.length > 0){
             createTransaction({
                 order: JSON.stringify(this.items),
                 paymentType : this.paymentType,
-                customerID: this.customerId,
+                customerID: this.customerid,
             });
             this.items = [];
-        }   
+        }
     }
-    changeProductId(event){
-        this.productId = event.detail.value;
-    }
-    changeCustomerId(event){
-        this.customerId = event.detail.value;
-    }
-    changeQuantity(event){
-        this.quantity = event.detail.value;
-    }
-    handleChangePaymentType(event) {
-        this.paymentType = event.detail.value;
+    @api 
+    addItemToOrder(item){
+        console.log(item.productId +" "+item.productName +" "+ item.productQuantity+" "+item.productPrice);
+        if(this.items == []){
+            this.items = [{
+                productId : item.productId,
+                productName : item.productName,
+                productQuantity : item.productQuantity,
+                productPrice : item.productPrice
+            }];
+            console.log(this.items);
+        }
+        else{
+            this.items = this.items.concat([{
+                productId : item.productId,
+                productName : item.productName,
+                productQuantity : item.productQuantity,
+                productPrice : item.productPrice
+            }]);
+            console.log(this.items);
+        }
     }
     
+   
+    
+
 }

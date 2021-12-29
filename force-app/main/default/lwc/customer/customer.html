@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-float_left" style="width: 150px; height: 150px">
+        <lightning-card  title={customer.Name} style={color}>
+            <p>{customer.FirstName__c}</p>
+            <p>Bonus: {customer.Bonus__c} </p> 
+            <template if:false={choose}>
+                <lightning-button label="Choose" onclick={handleChooseCustomer}></lightning-button>
+            </template>
+            <template if:true={choose}>
+                <lightning-button label="Dismiss" onclick={handleDismiss}></lightning-button>
+            </template>  
+        </lightning-card>
+    </div>
+</template>

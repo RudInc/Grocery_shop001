@@ -4,7 +4,7 @@ public with sharing class CustomerOrderController {
         List<LineItemWrapper> itemsWrapper= (List<LineItemWrapper>)JSON.deserialize(order, List<LineItemWrapper>.class);
         List<LineItemDTO> itemsDTO= new List<LineItemDTO>(); 
         for(LineItemWrapper item : itemsWrapper){
-            itemsDTO.add(new LineItemDTO(item.quantity, item.productId));
+            itemsDTO.add(new LineItemDTO(item.productQuantity, item.productId));
         }
         
         GroceryServices.createTransaction(paymentType, itemsDTO, (Id)customerID);
@@ -12,8 +12,9 @@ public with sharing class CustomerOrderController {
         
     }
     public class LineItemWrapper{
-        @AuraEnabled public Integer quantity{get;set;}
+        @AuraEnabled public Integer productQuantity{get;set;}
         @AuraEnabled public ID productId{get;set;}
+        @AuraEnabled public String productName{get;set;}
         public LineItemWrapper(){
 
         }

@@ -1,0 +1,10 @@
+<template>
+    <div class="slds-float_left" style="width: 200px; height: 200px;">
+        <lightning-card  title={product.Name}>
+            <p>Product Price: {product.Price__c}</p>
+            <p>Product Quantity: {product.Available_Amount__c}</p>
+            <lightning-input  type="number" label="Num" value={quantity} onchange={handleQuantityChange} min="1" step="1"></lightning-input>
+            <lightning-button variant="brand" disabled={disabled} label="Add" onclick={handleAddButton}></lightning-button>
+        </lightning-card>
+    </div>
+</template>
